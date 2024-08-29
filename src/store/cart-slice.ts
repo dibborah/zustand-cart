@@ -1,3 +1,4 @@
+import { CartProduct } from "@/types/cartProduct";
 import { Product } from "@/types/products";
 import { StateCreator } from "zustand";
 
@@ -11,21 +12,30 @@ type CartActions = {
     removeProduct: (productId: string) => void;
     incQty: (productId: string) => void;
     decQty: (productId: string) => void;
-    getProductById: (productId: string) => (Product & { qty: number }) | undefined;
+    getProductById: (productId: string) => CartProduct | undefined;
+    setTotal: (total: number) => void, 
+    reset: () => void;
 }
 
-export type UserSlice = UserState & UserActions;
+export type CartSlice = CartState & CartActions;
 
-export const createUserSlice: StateCreator<UserSlice, [['zustand/immer', never]], [], UserSlice> = (
-    set
-) => ({
-    address: '',
-    age: 0,
-    fullName: '',
-    userName: '',
-    setAddress: (address) => 
-        set((state) => { // This is not a object which is returned it is an object which is returned
-        state.address = address
-     }),
+const inititalState: CartState = {
+    products: [],
+    total: 0,
+}
+
+export const createCartSlice: StateCreator<
+  CartSlice,
+  [['zustand/immer', never]],
+  [],
+  CartSlice
+> = ( set ) => ({
+    ...inititalState,
+    incQty: (productId) => set((state) => {
+        const foundProduct = state.products.find((product) => product.id === productId);
+        if(foundProduct) {
+            foundProduct.qty += 1;
+        }
+    })
 });
 
