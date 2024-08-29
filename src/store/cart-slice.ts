@@ -1,14 +1,17 @@
+import { Product } from "@/types/products";
 import { StateCreator } from "zustand";
 
-type UserState = {
-    userName: string;
-    fullName: string;
-    age: number;
-    address: string;
+type CartState = {
+    products: (Product & { qty: number })[];
+    total: number;
 };
 
-type UserActions = {
-    setAddress: (address: string) => void;
+type CartActions = {
+    addProduct: (product: Product) => void;
+    removeProduct: (productId: string) => void;
+    incQty: (productId: string) => void;
+    decQty: (productId: string) => void;
+    getProductById: (productId: string) => (Product & { qty: number }) | undefined;
 }
 
 export type UserSlice = UserState & UserActions;
