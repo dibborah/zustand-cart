@@ -7,11 +7,12 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card"
 import { ChangeQtyButtons } from "./ChangeQtyButtons";
 
 export function Cart() {
-    const { reset, products, removeProduct, total } = useStore(useShallow(state => ({
+    const { reset, products, removeProduct, total, address } = useStore(useShallow(state => ({
         reset: state.reset,
         products: state.products,
         removeProduct: state.removeProduct,
         total: state.total,
+        address: state.address,
     })));
     return <Popover>
         <PopoverTrigger asChild>
@@ -47,6 +48,7 @@ export function Cart() {
                 ))}
             </div>
             <p>Total: {total}$</p>
+            <p>Address: {address}</p>
         </PopoverContent>
     </Popover>;
 };

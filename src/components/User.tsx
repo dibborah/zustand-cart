@@ -5,14 +5,22 @@ import { useStore } from "@/store/store";
 import { useShallow } from "zustand/react/shallow";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
+import { useEffect } from "react";
 
 export function User() {
-    const { fullName, userName, address, setAddress } = useStore(useShallow(state => ({
+    const { fullName, userName, address, setAddress, fetchUser } = useStore(useShallow(state => ({
         fullName: state.fullName,
         userName: state.userName,
         address: state.address,
         setAddress: state.setAddress,
+        fetchUser: state.fetchUser,
     })));
+    useEffect(() => {
+        async function fetchData() {
+            fetchUser();
+        }
+        fetchData();
+    }, [fetchUser]);
     return <Popover>
         <PopoverTrigger asChild>
             <Button variant="secondary" size="icon">
