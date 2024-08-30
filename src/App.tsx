@@ -1,25 +1,15 @@
-import { create } from "zustand";
-import { Button } from "./components/ui/button"
+import { Card, CardHeader } from "./components/ui/card";
+import { PRODUCTS_DATA } from "./lib/mockData";
 
-const useStore = create<{
-  count: number,
-  decQty: () => void,
-  incQty: () => void,
-}>((set) => ({
-  count: 0,
-  decQty: () => set((state) => ({ count: state.count - 1 })),
-  incQty: () => set((state) => ({ count: state.count + 1 })),
-}))
-
-const App = () => {
-  const { count, incQty, decQty } = useStore((store) => store);
+export default function App() {
   return (
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-      <Button onClick={decQty}> - </Button>
-      {count}
-      <Button onClick={incQty}> + </Button>
-    </div>
-  )
+    <main className="space-y-2 dark h-screen bg-background max-w-sm mx-auto mt-2">
+      <h1 className="text-2xl">Products:</h1>
+      <div className="space-y-2">
+        {PRODUCTS_DATA.map((product) => <Card key={product.id}>
+          <CardHeader>{product.title}</CardHeader>
+        </Card>)}
+      </div>
+    </main>
+  );
 }
-
-export default App
