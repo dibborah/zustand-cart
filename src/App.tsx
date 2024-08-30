@@ -1,3 +1,4 @@
+import { ChangeQtyButtons } from "./components/ChangeQtyButtons";
 import { Button } from "./components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "./components/ui/card";
 import { PRODUCTS_DATA } from "./lib/mockData";
@@ -15,7 +16,7 @@ export default function App() {
           <CardContent>{product.price}$</CardContent>
           <CardFooter>
             {cartProducts.find((item) => item.id === product.id) ? (
-              <>change qty buttons</>
+              <ChangeQtyButtons productId={product.id} />
             ) : (
               <Button onClick={() => addProduct(product)} variant="default">Add to Cart</Button>
             )}
