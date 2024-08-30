@@ -22,7 +22,7 @@ export type CartSlice = CartState & CartActions;
 const inititalState: CartState = {
     products: [],
     total: 0,
-};
+}
 
 export const createCartSlice: StateCreator<
   CartSlice,
